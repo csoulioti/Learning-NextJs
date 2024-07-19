@@ -21,7 +21,7 @@ export const ProjectsList = ({ projects }: { projects: Project[] }) => {
 	}
 	return (
 		<TableContainer component={Paper}>
-			<Table sx={{ minWidth: 650 }} aria-label="List of PBL Projects">
+			<Table sx={{ minWidth: 650 }} aria-label="List of Projects">
 				<TableHead>
 					<TableRow>
 						<TableCell>Title</TableCell>

@@ -6,7 +6,7 @@ import { CssBaseline, GlobalStyles } from '@mui/material'
 import './styles/tailwind.css'
 
 export const metadata: Metadata = {
-	title: 'PBLWorks Author',
+	title: 'Learning Nextjs',
 }
 
 export default function RootLayout({
