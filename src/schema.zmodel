@@ -1,0 +1,49 @@
+// This is a sample model to get you started.
+
+/**
+ * A sample data source using local sqlite db.
+ */
+datasource db {
+    provider = 'sqlite'
+    url = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+// This represents the data that will be passed into into the zenstack `enhance` function
+// which wraps the prisma client. This is where we can add custom fields to the context
+// that will be available as `auth()` in the `@@allow` directives
+model ZenstackAuth {
+    // values from the DB user record
+    id      String @id
+    clerkId String
+
+    // instruct prisma to ignore this model in the database
+    @@ignore
+
+    // instruct zenstack to use this virtual model for the `auth()` context
+    @@auth
+}
+
+// This is the base model for all models. It contains common fields and
+// (later) access policies that are shared across all the models.
+abstract model BaseModel {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    deleted   Boolean? @default(false) @omit
+
+    @@deny('read', deleted)
+    @@allow('all', true)
+}
+
+model Project extends BaseModel {
+    title       String @default("")
+    subhead     String @default("")
+    description String @default("")
+    
+    // This helps the order by in the Project list a LOT
+    @@index([id, updatedAt])
+}
